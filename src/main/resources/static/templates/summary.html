@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .quickLinks {
+            margin-right: 18em;
+            border-style: solid;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 2em;
+            color: white;
+            font-size: 25px;
+            text-align: center;
+            width: 400px;
+        }
+        
+        .quicklinks a:link {
+            color: white;
+        }
+        
+        .quicklinks a:visited {
+            color: white;
+        }
+        
+        .quicklinks a:hover {
+            color: white;
+        }
+        
+        .quicklinks a:active {
+            color: white;
+        }
+        
+        .panel-title {
+            color: black;
+        }
+        
+        .col-md-4 {
+            outline: 1px solid;
+        }
+        
+        .center {
+            margin: 0 auto;
+            width: 80%;
+        }
+        
+        #updateHistoryLink {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+
+        <div class="jumbotron col-md-offset-1 col-md-3" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black; padding-left:2.5em;">
+
+            <h1>{{username}}</h1>
+
+            <p>Here are you stats from the last 30 days</p>
+
+        </div>
+        <div class="well col-md-2" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
+            <h4>Total Distance:</h4>
+            <p>{{distance | number}} miles</p>
+
+        </div>
+        <div class="well col-md-2" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
+            <h4>Total Time Spent:</h4>
+            <p>{{time | number}} minutes</p>
+        </div>
+        <div class="well col-md-2" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
+            <h4>Total Weight Lifted</h4>
+            <p>{{weight | number}} lbs</p>
+        </div>
+
+
+
+        <div class="col-md-offset-1 col-md-1">
+            <div class="row" style="margin-left:-50px; margin-right:-50px;">
+                <div class="sidebar" style="box-shadow: 10px 5px 5px black;">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a ui-sref="default" ui-sref-active="active">Dashboard <span class="sr-only">(current)</span></a></li>
+                        <li><a ui-sref="ViewRegimen" ui-sref-active="active">Daily Regimen <span class="sr-only">(current)</span></a></li>
+                        <li><a ui-sref="History" ui-sref-active="active">View Calendar <span class="sr-only"></span></a></li>
+                        <li><a ui-sref="WorkoutHistory" ui-sref-active="active"> Add a New Workout <span class="sr-only"></span></a></li>
+                        <li><a ui-sref="Exercises" ui-sref-active="active">Browse Exercises <span class="sr-only"></span></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="well col-md-5" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black; margin-left:4em; margin-top:-50px;">
+            <div ng-show="regimen.length > 0">
+                <h2>Today's Workout:</h2>
+            </div>
+
+            <h2 ng-show="regimen.length == 0">Enjoy your rest day!</h2>
+
+            <table class="table table-striped" style="width: auto;" ng-show="regimen.length > 0">
+                <thead>
+                    <tr>
+                        <th>Exercise:</th>
+                        <th>Sets:</th>
+                        <th>Reps:</th>
+                        <th>Weight:</th>
+                        <th>Distance:</th>
+                        <th>Time:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="exercise in regimen">
+                        <td>{{exercise.currentExercise}}</td>
+                        <td>{{exercise.sets}}</td>
+                        <td>{{exercise.reps}}</td>
+                        <td>{{exercise.weight}}</td>
+                        <td>{{exercise.distance}}</td>
+                        <td>{{exercise.time}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 ng-click="linkToUpdateHistory()">
+					<a id="updateHistoryLink">Click here to log a workout.</a>
+				</h3>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<!--http://angular-ui.github.io/ui-calendar/-->

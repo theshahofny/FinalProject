@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            background: url('http://www.weight-loss-for-busy-people.com/wp-content/uploads/2015/09/running-workouts.jpg') fixed;
+            background-size: cover;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .form-title {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+        
+        form {
+            margin-left: auto;
+            margin-right: auto;
+            width: 450px;
+            border: solid;
+            padding: 4em 2em;
+            background-color: rgba(0, 0, 0, 0.5);
+            margin-top: 14em;
+        }
+        
+        form.login input[type="text"],
+        form.login input[type="password"] {
+            width: 100%;
+            margin: 0;
+            background: #D6DBDF;
+            border: #FFFFFF;
+            border-radius: 4px;
+            outline: 0;
+            font-style: italic;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            color: #000000;
+            outline: 0;
+            padding: 5px;
+        }
+        
+        form.login input[type="submit"] {
+            width: 100%;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-top: 16px;
+            outline: 0;
+            cursor: pointer;
+            letter-spacing: 1px;
+            border-radius: 4px;
+        }
+        
+        form.login input[type="submit"]:hover {
+            transition: background-color 0.5s ease;
+        }
+        
+        form.login label,
+        form.login a {
+            font-size: 12px;
+            font-weight: 400;
+            color: #FFFFFF;
+        }
+        
+        form.login a {
+            transition: color 0.5s ease;
+        }
+        
+        form.login a:hover {
+            color: black;
+        }
+        #alertBox{
+        	color:red;
+        	font-weight: bold;
+        	text-align: center;
+        }
+        
+    </style>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <div>
+
+        <div class="container">
+            <form class="form">
+                <div class="form-title">
+                    <h1>TDA Fitness!</h1>
+                    <h2>Please Sign In!</h2>
+                </div>
+                <input type="text" class="form-control" placeholder="Username" required="" autofocus="" id="username">
+                <input type="password" class="form-control" placeholder="Password" required="" autofocus="" id="password">
+                <div id="alertBox" class="hidden"> Invalid Username/Password! Please try again.</div>
+                <a>
+                    <button id="login" type="button">OK</button>
+                </a>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#login').click(checkLogin);
+
+        });
+
+        function checkLogin() {
+            $.ajax({
+                url: location.pathname + '/login',
+                type: "POST",
+                data: {
+                    username: $('#username').val(),
+                    password: $('#password').val()
+                },
+                dataType: "json"
+            }).done(function (response) {
+               
+                if (response.success)
+                    window.location = "/fitness/home/" + response.success.id;
+                else {
+                	$('#alertBox').removeClass("hidden");
+                	
+                }
+                
+            })
+
+        }
+    </script>
+</body>
+
+</html>

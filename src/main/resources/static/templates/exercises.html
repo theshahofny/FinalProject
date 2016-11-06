@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+<style>
+body {
+        background: url('/exercisebackground.png');
+        background-size: 100%;
+    }
+    
+    .header {
+        color: white;
+        text-align: center;
+    }
+    
+    #outerPart {
+        background-color: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0%;
+        z-index: 8990;
+    }
+    
+    .popupp {
+        top: 5%;
+        margin: 70px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        position: fixed;
+        transition: all 5s ease-in-out;
+        border-radius: 25px;
+        border: 2px solid black;
+        box-sizing: border-box;
+    }
+    
+    .popupp h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+    }
+    
+    .popupp .close:hover {
+        color: #06D85F;
+    }
+    
+    .popupp .content {
+        overflow: auto;
+    }
+    
+    #wrapperstuff {
+        word-wrap: break-word;
+    }
+}
+</style>
+</head>
+
+<body>
+    <div class="col-md-12" id="popUpBackground" style="position:fixed; top:0%; left:0%; height:100%; background-color:black;opacity:0.5; z-index:8000;" ng-model="eC.p2" ng-show="eC.detlOpen" ng-click="eC.closePopUpp()">
+    </div>
+
+    <div class="col-md-offset-1" ng-show="eC.detlOpen" id="outerPart" ng-click="eC.closePopUpp()">
+
+        <div class="popupp">
+            <div class="container" ng-show="eC.display">
+                <div style="text-align:right;">
+                    <button id="Xbutton" ng-click="eC.closePopUpp()">X</button>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3" id="wrapperstuff" style="margin-top:-30px;">
+                            <h3>{{eC.name}}</h3>
+                            <h5>Target Muscle: {{eC.muscle}}</h5>
+                            <img src="{{eC.image}}">
+                        </div>
+
+
+                        <p class="col-md-8" style="margin-top:40px;">{{eC.instruction}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container col-md-offset-2 col-md-7">
+            <h2 class="header" style="margin:0em;">Exercises</h2>
+        </div>
+        <div class="col-md-offset-2 col-md-1">
+            <div class="row" style="margin-left:-50px; margin-right:-50px;">
+                <div class="sidebar " style="box-shadow: 10px 5px 5px black; ">
+                    <ul class="nav nav-sidebar ">
+                        <li><a ui-sref="default " ui-sref-active="active ">Dashboard <span class="sr-only ">(current)</span></a></li>
+                        <li><a ui-sref="ViewRegimen " ui-sref-active="active ">Daily Regimen <span class="sr-only ">(current)</span></a></li>
+                        <li><a ui-sref="History " ui-sref-active="active ">View Calendar <span class="sr-only "></span></a></li>
+                        <li><a ui-sref="WorkoutHistory " ui-sref-active="active "> Add a New Workout <span class="sr-only "></span></a></li>
+                        <li class="active "><a ui-sref="Exercises " ui-sref-active="active ">Browse Exercises <span class="sr-only "></span></a></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container col-md-offset-3 col-md-7 " style="margin-top:-10em; ">
+
+            <div class="panel-group" style="box-shadow: 10px 5px 5px black;">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#collapse1" style="cursor: pointer; ">
+                        <h4 class="panel-title">
+						<span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Arms
+					</h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead style="cursor: default;">
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="eC.detail($event) " ng-repeat='exercise in eC.arms' data-instructions="{{exercise.instructions}} " data-gif="{{exercise.image}} " data-muscle="{{exercise.muscles}} " data-name="{{exercise.exercise_name}} ">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-group" style="box-shadow: 10px 5px 5px black;">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#collapse2" style="cursor: pointer;">
+                        <h4 class="panel-title">
+						<span class="glyphicon glyphicon-list"></span> &nbsp;&nbsp;Legs
+					</h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead style="cursor: default; ">
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="eC.detail($event) " ng-repeat='exercise in eC.legs' data-instructions="{{exercise.instructions}} " data-gif="{{exercise.image}} " data-muscle="{{exercise.muscles}} " data-name="{{exercise.exercise_name}} ">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="panel-group " style="box-shadow: 10px 5px 5px black; ">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
+                    <div class="panel-heading " data-toggle="collapse" data-target="#collapse3" style="cursor: pointer; ">
+                        <h4 class="panel-title ">
+						<span class="glyphicon glyphicon-list "></span> &nbsp;&nbsp;Chest
+					</h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped ">
+                                <thead style="cursor: default; ">
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="eC.detail($event) " ng-repeat='exercise in eC.chest' data-instructions="{{exercise.instructions}} " data-gif="{{exercise.image}} " data-muscle="{{exercise.muscles}} " data-name="{{exercise.exercise_name}} ">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group " style="box-shadow: 10px 5px 5px black; ">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#collapse4" style="cursor: pointer; ">
+                        <h4 class="panel-title">
+						<span class="glyphicon glyphicon-list "></span> &nbsp;&nbsp;Back
+					</h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped ">
+                                <thead style="cursor: default; ">
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="eC.detail($event) " ng-repeat='exercise in eC.back' data-instructions="{{exercise.instructions}} " data-gif="{{exercise.image}} " data-muscle="{{exercise.muscles}} " data-name="{{exercise.exercise_name}} ">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group " style="box-shadow: 10px 5px 5px black; ">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#collapse5" style="cursor: pointer; ">
+                        <h4 class="panel-title">
+						<span class="glyphicon glyphicon-list "></span>
+						&nbsp;&nbsp;Shoulders
+					</h4>
+                    </div>
+                    <div id="collapse5" class="panel-collapse collapse">
+                        <div class="panel-body ">
+                            <table class="table table-striped ">
+                                <thead style="cursor: default; ">
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="eC.detail($event) " ng-repeat='exercise in eC.shoulders' data-instructions="{{exercise.instructions}} " data-gif="{{exercise.image}} " data-muscle="{{exercise.muscles}} " data-name="{{exercise.exercise_name}} ">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group" style="box-shadow: 10px 5px 5px black; ">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
+                    <div class="panel-heading " data-toggle="collapse" data-target="#collapse6" style="cursor: pointer; ">
+                        <h4 class="panel-title ">
+						<span class="glyphicon glyphicon-list "></span> &nbsp;&nbsp;Core
+					</h4>
+                    </div>
+                    <div id="collapse6" class=" panel-collapse collapse">
+                        <div class="panel-body ">
+                            <table class="table table-striped ">
+
+                                <thead style="cursor: default; ">
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="eC.detail($event) " ng-repeat='exercise in eC.core' data-instructions="{{exercise.instructions}} " data-gif="{{exercise.image}} " data-muscle="{{exercise.muscles}} " data-name="{{exercise.exercise_name}} ">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group " style="box-shadow: 10px 5px 5px black; ">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#collapse7" style="cursor: pointer; ">
+                        <h4 class="panel-title">
+						<span class="glyphicon glyphicon-list "></span>
+						&nbsp;&nbsp;Plyometrics
+					</h4>
+                    </div>
+                    <div id="collapse7" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead style="cursor: default;">
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="eC.detail($event) " ng-repeat='exercise in eC.plyometrics' data-instructions="{{exercise.instructions}} " data-gif="{{exercise.image}} " data-muscle="{{exercise.muscles}} " data-name="{{exercise.exercise_name}} ">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group " style="box-shadow: 10px 5px 5px black; ">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#collapse8" style="cursor: pointer; ">
+                        <h4 class="panel-title ">
+						<span class="glyphicon glyphicon-list "></span> &nbsp;&nbsp;Neck
+					</h4>
+                    </div>
+                    <div id="collapse8" class="panel-collapse collapse">
+                        <div class="panel-body ">
+                            <table class="table table-striped ">
+                                <thead style="cursor: default; ">
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="eC.detail($event) " ng-repeat='exercise in eC.neck' data-instructions="{{exercise.instructions}} " data-gif="{{exercise.image}} " data-muscle="{{exercise.muscles}} " data-name="{{exercise.exercise_name}} ">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group " style="box-shadow: 10px 5px 5px black; ">
+                <div class="panel panel-default" data-toggle="tooltip" title="Click to select an exercise!" data-placement="right">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#collapse9" style="cursor: pointer; ">
+                        <h4 class="panel-title ">
+						<span class="glyphicon glyphicon-list "></span> &nbsp;&nbsp;Cardio
+					</h4>
+                    </div>
+                    <div id="collapse9" class="panel-collapse collapse">
+                        <div class="panel-body ">
+                            <table class="table table-striped ">
+                                <thead style="cursor: default; ">
+                                    <tr>
+                                        <th>ID:</th>
+                                        <th>Exercise:</th>
+                                        <th>Target Muscle:</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-click="eC.detail($event) " ng-repeat='exercise in eC.cardio' data-instructions="{{exercise.instructions}} " data-gif="{{exercise.image}} " data-muscle="{{exercise.muscles}} " data-name="{{exercise.exercise_name}} ">
+                                        <td>{{exercise.id}}</td>
+                                        <td>{{exercise.exercise_name}}</td>
+                                        <td>{{exercise.muscles}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

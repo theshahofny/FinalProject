@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html ng-app="Fitness">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="referrer" content="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDA Fitness!</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.js"></script>
+
+
+
+    <script src="../../vendor/angular-ui-router.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+
+
+
+    <script src="../../js/utils.js "></script>
+
+
+    <script src="../../js/main.js "></script>
+    <script src="../../js/services/momentPicker.js"></script>
+    <script src="../../js/services/exercises.js "></script>
+    <script src="../../js/controllers/exerciseController.js "></script>
+    <script src="../../js/controllers/auController.js "></script>
+    <script src="../../js/controllers/historyController.js "></script>
+    <script src="../../js/controllers/workoutHistoryController.js "></script>
+    <script src="../../js/controllers/regimenController.js "></script>
+    <script src="../../js/controllers/monthly-workout-controller.js"></script>
+    <script src="../../js/controllers/summaryController.js"></script>
+
+
+</head>
+<style>
+    html {
+        background: url('/exercisebackground.png') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    
+    body {
+        background-color: transparent;
+    }
+    
+    .panel-heading:hover {
+        background-color: #c3c3a2;
+    }
+    
+    .full button span {
+        background-color: limegreen;
+        border-radius: 32px;
+        color: black;
+    }
+    
+    .partially button span {
+        background-img: ('\david.jpg');
+        background-color: black;
+        border-radius: 32px;
+        color: black;
+    }
+    
+    tbody tr:hover {
+        background: #c3c3a2;
+    }
+    
+    tbody tr:hover:nth-child(odd) {
+        background: #c3c3a2;
+    }
+    
+    .nav-sidebar {
+        background-color: #ebebe0;
+        margin-right: -21px;
+        /* 20px padding + 1px border */
+        margin-bottom: 20px;
+        margin-left: -20px;
+    }
+    
+    .nav-sidebar > li > a {
+        padding-right: 20px;
+        padding-left: 20px;
+        color: black
+    }
+    
+    .nav-sidebar > li > a:hover {
+        background-color: #c3c3a2;
+    }
+    
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+        color: #fff;
+        background-color: #428bca;
+    }
+</style>
+
+<body class="color ">
+    <header>
+        <nav class="navbar navbar-inverse ">
+            <div class="container-fluid ">
+                <div class="navbar-header" ui-sref-active="active">
+                    <a ui-sref="default" class="navbar-brand ">TDA! Fitness</a>
+                </div>
+                <ul class="nav navbar-nav ">
+                    <li ui-sref-active="active "><a ui-sref="default">Dashboard</a></li>
+                    <li ui-sref-active="active "><a ui-sref="Exercises ">Exercises</a></li>
+                    <li ui-sref-active="active "><a ui-sref="ViewRegimen ">Regimen</a></li>
+                    <li ui-sref-active="active "><a ui-sref="History "> Workout
+							Calender</a></li>
+                    <li ui-sref-active="active "><a ui-sref="WorkoutHistory ">
+							Update Workout History</a></li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right ">
+
+                    <li><a href="/fitness "><span
+							class="glyphicon glyphicon-log-out "></span> Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main ui-view style="margin-bottom:5em;">
+        <div style="color:white">Loading...</div>
+    </main>
+</body>
+
+</html>

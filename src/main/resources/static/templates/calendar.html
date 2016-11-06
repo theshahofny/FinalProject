@@ -1,0 +1,233 @@
+<style type="text/css">
+    body {
+        background: url('/exercisebackground.png');
+    }
+    
+    td {
+        padding: 0 .5em
+    }
+    
+    #calendar-container {
+        border: 0px none;
+        background: #595959;
+        padding-bottom: 1em;
+        width: 90%;
+        height: 90%;
+        margin: auto;
+        min-width: 550px;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        box-shadow: 5px 5px 5px black;
+        z-index: 1000;
+    }
+    
+    #calendar-container h4 {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+    
+    #calendar-container h4 {
+        font-size: 1.5em
+    }
+    
+    #calendar-container h4 span.scroll {
+        cursor: pointer;
+        font-size: 1.5em;
+        padding: 0 1em
+    }
+    
+    #calendar-container h4.month-year {
+        font-family: Verdana, serif;
+        background: #595959;
+        margin: 0;
+        padding: 1em 0;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        font-size: 28px
+    }
+    
+    #calendar-container ul.dow,
+    #calendar-container ul.data {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        text-align: center;
+    }
+    
+    #calendar-container ul.dow,
+    #calendar-container ul.dow li {
+        background: #bfbfbf
+    }
+    
+    #calendar-container ul.dow {
+        white-space: nowrap
+    }
+    
+    #calendar-container ul.dow li,
+    #calendar-container ul.data li {
+        box-sizing: padding-box;
+        width: 14%;
+    }
+    
+    #calendar-container ul.dow li {
+        display: inline-block;
+        /* border: 1px solid #aaa; */
+        padding: .5em 0;
+        font-weight: bolder;
+    }
+    
+    #calendar-container ul.data {
+        background: #999999;
+        overflow-x: hidden;
+    }
+    
+    #calendar-container ul.data li {
+        display: inline-block;
+        border: 1px solid #aaa;
+        font-family: cursive;
+        background: window;
+        text-align: left;
+        position: relative;
+        height: 8em;
+        padding: 2px 0 0 .25em;
+    }
+    
+    #calendar-container ul.data li.prior {
+        color: #aaa
+    }
+    
+    #calendar-container ul.data li.next {
+        color: #aaa
+    }
+    
+    #calendar-container ul.data li.today {
+        background: #10a990
+    }
+    
+    #calendar-container ul.data li.future {
+        background-color: rgb(226, 226, 226);
+        background-image: linear-gradient(to right, rgb(245, 245, 245) 0%, rgba(252, 252, 252, 0.52) 49%, rgba(252, 252, 252, 0.18) 85%, rgba(254, 254, 254, .03) 100%)
+    }
+    
+    #calendar-container span.categories {
+        bottom: .5em;
+        display: inline-block;
+        left: .25em;
+        font-weight: bold;
+        font-size: 75%;
+        font-family: Arial, serif;
+        position: absolute;
+        background-color: rgba(169, 175, 232, 0.5);
+    }
+    
+    #calendar-container span.details {
+        cursor: pointer;
+        position: absolute;
+        height: .75em;
+        width: .75em;
+        border-radius: 50%;
+        background: #aabb11;
+        display: block;
+        top: 4px;
+        right: 4px
+    }
+    
+    #outerPrt {
+        background-color: rgba(0, 0, 0, 0.5);
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0%;
+        left: 0%;
+        z-index: 8990;
+    }
+    
+    #headerEdit {
+        font-weight: bold;
+    }
+    
+    .popup {
+        top: 1em;
+        left: 25%;
+        padding: 20px;
+        background: #fff;
+        border-radius: 5px;
+        width: 50%;
+        position: fixed;
+        transition: all 5s ease-in-out;
+        border-radius: 25px;
+        border: 2px solid black;
+    }
+    
+    .popup h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+    }
+    
+    .popup .close:hover {
+        color: #06D85F;
+    }
+    
+    .popup .content {
+        max-height: 30%;
+        overflow: auto;
+    }
+    
+    @media screen and (max-width: 700px) {
+        .popup {
+            width: 70%;
+        }
+    }
+</style>
+<div ng-show="MHC.detailOpen" id="outerPrt">
+    <div class="container-fluid">
+        <div class="popup">
+
+            <button class="col-md-offset-11" id="Xbutton" ng-click="MHC.closePopUp()">X</button>
+            <h2>&nbsp&nbspExercise History for {{ MHC.thisDate }}:</h2>
+            <ul ng-repeat="exer in MHC.list">
+
+                <div id="headerEdit">{{ exer.exercise.exercise_name }}:</div>
+                <li>
+                    <div ng-show="{{exer.time}}">Time: {{ exer.time }} mins,</div>
+                    <div ng-show="{{exer.distance}}"> Distance: {{exer.distance}} miles, </div>
+                    <div ng-show="{{exer.weight}}"> Weight: {{ exer.weight }} lbs,</div>
+                    <div ng-show="{{exer.sets}}"> Sets: {{exer.sets }},</div>
+                    <div ng-show="{{exer.reps}}"> Reps: {{ exer.reps }} </div>
+                </li>
+
+            </ul>
+            <div class="content" ng-repeat="exercises in MHC.exercises">
+                {{MHC.workOutHistory}}</div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="calendar-container">
+    <h4 class="month-year">
+		<span ng-click="MHC.scroll($event,'prior')" class="scroll">&laquo;</span>
+		{{ MHC.calendar.fullMonth() }} {{ MHC.calendar.fullYear() }} <span
+			ng-click="MHC.scroll($event, 'next')" class="scroll">&raquo;</span>
+	</h4>
+    <ul class="dow">
+        <li>Sun</li>
+        <li>Mon</li>
+        <li>Tue</li>
+        <li>Wed</li>
+        <li>Thu</li>
+        <li>Fri</li>
+        <li>Sat</li>
+    </ul>
+
+    <ul class="data">
+        <li title="{{ day.active() ? 'View Details' : 'Add Work Out History'}}" ng-class="day.classes(MHC.calendar)" ng-repeat="day in MHC.blocks" ng-click="MHC.viewDetails(day)">
+            {{ day.date.getDate() }} <span class="categories">
+				{{ day.display() }} </span> <span class="details" ng-show="day.active()">&nbsp;</span>
+        </li>
+    </ul>
+
+</div>

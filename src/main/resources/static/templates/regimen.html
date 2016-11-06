@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .quickLinks {
+            margin-right: 18em;
+            border-style: solid;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 2em;
+            color: white;
+            font-size: 25px;
+            text-align: center;
+            width: 400px;
+        }
+        
+        .quicklinks a:link {
+            color: white;
+        }
+        
+        .quicklinks a:visited {
+            color: white;
+        }
+        
+        .quicklinks a:hover {
+            color: white;
+        }
+        
+        .quicklinks a:active {
+            color: white;
+        }
+        
+        .panel-title {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="row">
+        <div class="well col-md-offset-2 col-md-1" ng-style="{'background-color':(day === 'Sunday'?'#5bc0de': (containsWorkout('Sunday')?'#99ff99':'#ebebe0'))}" ng-click="day = 'Sunday'" data-toggle="tooltip" title="Click to change the day!" data-placement="bottom" style="box-shadow: 10px 5px 5px black;">
+
+            <h1 style="text-align:center;">Sun</h1>
+
+        </div>
+        <div class="well col-md-1" ng-style="{'background-color':(day === 'Monday'?'#5bc0de': (containsWorkout('Monday')?'#99ff99':'#ebebe0'))}" ng-click="day = 'Monday'" data-toggle="tooltip" title="Click to change the day!" data-placement="bottom" style="box-shadow: 10px 5px 5px black;">
+
+            <h1 style="text-align:center;">Mon</h1>
+
+        </div>
+        <div class="well col-md-1" ng-style="{'background-color':(day === 'Tuesday'?'#5bc0de': (containsWorkout('Tuesday')?'#99ff99':'#ebebe0'))}" ng-click="day = 'Tuesday'" data-toggle="tooltip" title="Click to change the day!" data-placement="bottom" style="box-shadow: 10px 5px 5px black;">
+
+            <h1 style="text-align:center;">Tues</h1>
+
+        </div>
+        <div class="well col-md-1" ng-style="{'background-color':(day === 'Wednesday'?'#5bc0de': (containsWorkout('Wednesday')?'#99ff99':'#ebebe0'))}" ng-click="day = 'Wednesday'" data-toggle="tooltip" title="Click to change the day!" data-placement="bottom" style="box-shadow: 10px 5px 5px black;">
+
+            <h1 style="text-align:center;">Wed</h1>
+
+        </div>
+        <div class="well col-md-1" ng-style="{'background-color':(day === 'Thursday'?'#5bc0de': (containsWorkout('Thursday')?'#99ff99':'#ebebe0'))}" ng-click="day = 'Thursday'" data-toggle="tooltip" title="Click to change the day!" data-placement="bottom" style="box-shadow: 10px 5px 5px black;">
+            <h1 style="text-align:center;">Thurs</h1>
+
+        </div>
+        <div class="well col-md-1" ng-style="{'background-color':(day === 'Friday'?'#5bc0de': (containsWorkout('Friday')?'#99ff99':'#ebebe0'))}" ng-click="day = 'Friday'" data-toggle="tooltip" title="Click to change the day!" data-placement="bottom" style="box-shadow: 10px 5px 5px black;">
+
+            <h1 style="text-align:center;">Fri</h1>
+
+        </div>
+        <div class="well col-md-1" ng-style="{'background-color':(day === 'Saturday'?'#5bc0de': (containsWorkout('Saturday')?'#99ff99':'#ebebe0'))}" ng-click="day = 'Saturday'" data-toggle="tooltip" title="Click to change the day!" data-placement="bottom" style="box-shadow: 10px 5px 5px black;">
+            <h1 style="text-align:center;">Sat</h1>
+        </div>
+
+        <div class="col-md-1 col-md-offset-2">
+            <div class="row" style="margin-left:-50px; margin-right:-50px;">
+                <div class="sidebar" style="box-shadow: 10px 5px 5px black;">
+                    <ul class="nav nav-sidebar">
+                        <li><a ui-sref="default" ui-sref-active="active">Dashboard <span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a ui-sref="ViewRegimen" ui-sref-active="active">Daily Regimen <span class="sr-only">(current)</span></a></li>
+                        <li><a ui-sref="History" ui-sref-active="active">View Calendar <span class="sr-only"></span></a></li>
+                        <li><a ui-sref="WorkoutHistory" ui-sref-active="active"> Add a New Workout <span class="sr-only"></span></a></li>
+                        <li><a ui-sref="Exercises" ui-sref-active="active">Browse Exercises <span class="sr-only"></span></a></li>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="well col-md-offset-3 col-md-4" ng-hide="regimen.length != 0" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
+            <h2 style="text-align:center;">&nbsp;No regimen found!</h2>
+
+            <a class="col-md-offset-5" ui-sref-active="active">
+
+                <button type="button" class="btn btn-info" ui-sref="CreateRegimen" ng-click="createRegimen()" style="margin-top:1em;">Create Regimen
+                </button>
+            </a>
+        </div>
+
+        <div class="row" ng-hide="regimen.length == 0">
+            <div class="well col-md-offset-2 col-md-7" style="background-color: #ebebe0; box-shadow: 10px 5px 5px black;">
+                <h1>{{day}}'s Regimen</h1>
+
+                <table class="table table-striped" ng-show="day=='Sunday'">
+                    <thead>
+                        <tr>
+                            <th>Exercise:</th>
+                            <th>Sets:</th>
+                            <th>Reps:</th>
+                            <th>Weight:</th>
+                            <th>Distance:</th>
+                            <th>Time:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="exercise in regimen | filter: { day: 'Sunday' }">
+                            <td>{{exercise.exercise.exercise_name}}</td>
+                            <td>{{exercise.sets}}</td>
+                            <td>{{exercise.reps}}</td>
+                            <td>{{exercise.weight}}</td>
+                            <td>{{exercise.distance}}</td>
+                            <td>{{exercise.time}}</td>
+                        </tr>
+                         <tr ng-hide="sun"><td><h3>Rest day!</h3></td><td></td><td></td><td></td><td></td><td></td><tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-striped" ng-show="day=='Monday'">
+                    <thead>
+                        <tr>
+                            <th>Exercise:</th>
+                            <th>Sets:</th>
+                            <th>Reps:</th>
+                            <th>Weight:</th>
+                            <th>Distance:</th>
+                            <th>Time:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="exercise in regimen | filter: { day: 'Monday' }">
+                            <td>{{exercise.exercise.exercise_name}}</td>
+                            <td>{{exercise.sets}}</td>
+                            <td>{{exercise.reps}}</td>
+                            <td>{{exercise.weight}}</td>
+                            <td>{{exercise.distance}}</td>
+                            <td>{{exercise.time}}</td>
+                        </tr>
+                        <tr ng-hide="mon"><td><h3>Rest day!</h3></td><td></td><td></td><td></td><td></td><td></td><tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-striped" ng-show="day=='Tuesday'">
+                    <thead>
+                        <tr>
+                            <th>Exercise:</th>
+                            <th>Sets:</th>
+                            <th>Reps:</th>
+                            <th>Weight:</th>
+                            <th>Distance:</th>
+                            <th>Time:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="exercise in regimen | filter: { day: 'Tuesday' }">
+                            <td>{{exercise.exercise.exercise_name}}</td>
+                            <td>{{exercise.sets}}</td>
+                            <td>{{exercise.reps}}</td>
+                            <td>{{exercise.weight}}</td>
+                            <td>{{exercise.distance}}</td>
+                            <td>{{exercise.time}}</td>
+                        </tr>
+                         <tr ng-hide="tues"><td><h3>Rest day!</h3></td><td></td><td></td><td></td><td></td><td></td><tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-striped" ng-show="day=='Wednesday'">
+                    <thead>
+                        <tr>
+                            <th>Exercise:</th>
+                            <th>Sets:</th>
+                            <th>Reps:</th>
+                            <th>Weight:</th>
+                            <th>Distance:</th>
+                            <th>Time:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="exercise in regimen | filter: { day: 'Wednesday' }">
+                            <td>{{exercise.exercise.exercise_name}}</td>
+                            <td>{{exercise.sets}}</td>
+                            <td>{{exercise.reps}}</td>
+                            <td>{{exercise.weight}}</td>
+                            <td>{{exercise.distance}}</td>
+                            <td>{{exercise.time}}</td>
+                        </tr>
+                         <tr ng-hide="wed"><td><h3>Rest day!</h3></td><td></td><td></td><td></td><td></td><td></td><tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-striped" ng-show="day=='Thursday'">
+                    <thead>
+                        <tr>
+                            <th>Exercise:</th>
+                            <th>Sets:</th>
+                            <th>Reps:</th>
+                            <th>Weight:</th>
+                            <th>Distance:</th>
+                            <th>Time:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="exercise in regimen | filter: { day: 'Thursday' }">
+                            <td>{{exercise.exercise.exercise_name}}</td>
+                            <td>{{exercise.sets}}</td>
+                            <td>{{exercise.reps}}</td>
+                            <td>{{exercise.weight}}</td>
+                            <td>{{exercise.distance}}</td>
+                            <td>{{exercise.time}}</td>
+                        </tr>
+                        <tr ng-hide="thurs"><td><h3>Rest day!</h3></td><td></td><td></td><td></td><td></td><td></td><tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-striped" ng-show="day=='Friday'">
+                    <thead>
+                        <tr>
+                            <th>Exercise:</th>
+                            <th>Sets:</th>
+                            <th>Reps:</th>
+                            <th>Weight:</th>
+                            <th>Distance:</th>
+                            <th>Time:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="exercise in regimen | filter: { day: 'Friday' }">
+                            <td>{{exercise.exercise.exercise_name}}</td>
+                            <td>{{exercise.sets}}</td>
+                            <td>{{exercise.reps}}</td>
+                            <td>{{exercise.weight}}</td>
+                            <td>{{exercise.distance}}</td>
+                            <td>{{exercise.time}}</td>
+                        </tr>
+                         <tr ng-hide="fri"><td><h3>Rest day!</h3></td><td></td><td></td><td></td><td></td><td></td><tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-striped" ng-show="day=='Saturday'">
+                    <thead>
+                        <tr>
+                            <th>Exercise:</th>
+                            <th>Sets:</th>
+                            <th>Reps:</th>
+                            <th>Weight:</th>
+                            <th>Distance:</th>
+                            <th>Time:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="exercise in regimen | filter: { day: 'Saturday' }">
+                            <td>{{exercise.exercise.exercise_name}}</td>
+                            <td>{{exercise.sets}}</td>
+                            <td>{{exercise.reps}}</td>
+                            <td>{{exercise.weight}}</td>
+                            <td>{{exercise.distance}}</td>
+                            <td>{{exercise.time}}</td>
+                        </tr>
+                        <tr ng-hide="sat"><td><h3>Rest day!</h3></td><td></td><td></td><td></td><td></td><td></td><tr>
+                    </tbody>
+                </table>
+                <a ui-sref-active="active">
+                    <button type="button" class="btn btn-info" ui-sref="CreateRegimen" ng-click="createRegimen()">Update Regimen</button>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+<!--http://angular-ui.github.io/ui-calendar/-->

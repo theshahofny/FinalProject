@@ -1,0 +1,18 @@
+demo script
+
+-Login
+
+-Stats
+
+-Regimen
+
+-Exercise research
+
+-Workout History Calendar
+
+-Updating Workout History
+
+-Logout
+
+
+
